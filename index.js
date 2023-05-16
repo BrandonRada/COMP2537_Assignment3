@@ -109,9 +109,14 @@ const updateTags =  async () => {
 }
 
 
+const amountPokemon =  async () => {
+  $('#pokeAmount').append(`${pokemonSelection.length}`)
+  
+}
+
 const setup = async () => {
   // test out poke api using axios here
-
+  amountPokemon();
 
   $('#pokeCards').empty()
   let response = await axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=810');
@@ -183,6 +188,8 @@ const setup = async () => {
 
 //////////////////////////////////////
 const paginateNewCards = async (currentPage, PAGE_SIZE, thePokemons) => {
+  $('#pokeAmount').empty()
+  $('#pokeAmount').append(`${PAGE_SIZE} out of ${pokemonSelection.length}`)
     pokemonSelection = []
     thePokemons.forEach(function(pokemon) {
            let pokemonName = pokemon.pokemon.name;
@@ -197,7 +204,7 @@ const paginateNewCards = async (currentPage, PAGE_SIZE, thePokemons) => {
             });
           });
           console.log(pokemonSelection.length)
-
+          
   selected_pokemons = pokemonSelection.slice((currentPage - 1) * PAGE_SIZE, currentPage * PAGE_SIZE)
   console.log(selected_pokemons);
   $('#pokeCards').empty()
